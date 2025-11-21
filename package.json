@@ -1,0 +1,13 @@
+{
+  "name": "sheet-logger-proxy",
+  "version": "1.0.0",
+  "description": "Vercel proxy API forward log từ GPTs tới Google Apps Script Web App.",
+  "main": "api/log-chat.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
