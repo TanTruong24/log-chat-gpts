@@ -29,13 +29,20 @@ module.exports = async (req, res) => {
     }
   }
 
-  const { prompt, response, model } = body || {};
+  // Thêm sheet (tùy chọn)
+  const { prompt, response, model, sheet } = body || {};
 
   if (!prompt || !response || !model) {
     return res.status(400).json({
       ok: false,
       message: 'prompt, response, model are required'
     });
+  }
+
+  // Chuẩn hóa payload forward sang Apps Script
+  const forwardPayload = { prompt, response, model };
+  if (sheet) {
+    forwardPayload.sheet = sheet; 
   }
 
   try {
@@ -45,7 +52,7 @@ module.exports = async (req, res) => {
       headers: { 
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ prompt, response, model })
+      body: JSON.stringify(forwardPayload)
     });
 
     const raw = await gsRes.text();
